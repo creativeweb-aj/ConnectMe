@@ -1,1 +1,342 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ConnectMe-primary: mat-palette($mat-indigo);
+$ConnectMe-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ConnectMe-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ConnectMe-theme: mat-light-theme((
+  color: (
+    primary: $ConnectMe-primary,
+    accent: $ConnectMe-accent,
+    warn: $ConnectMe-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ConnectMe-theme);
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgba(0, 0, 0, 0.02);}
+
+.main-section{
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.main-section-2{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  .backButton {
+    margin-left: 25%;
+    margin-right: auto;
+    margin-bottom: 2%;
+    a {
+      padding-left: 10px;
+      .back {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+mat-error {
+  font-size: 12px;
+}
+
+
+.profile-spacer {
+  width: 80% !important;
+  margin-left: 7%;
+  margin-right: auto;
+  .search {
+    border: none;
+    width: 100%;
+    height: 30px;
+    outline: none;
+    text-align: center;
+    font-size: 15px;
+  }
+  .search:focus{
+    text-align: left;
+  }
+  .appTitle{
+    width: 100%;
+    text-align: center;
+    color: rgba(0, 0, 0);
+    span {
+      font-size: 15px;
+    }
+  }
+}
+
+.mat-card-post {
+  width: 50% !important;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  .card-image{
+    margin-top: 0px !important;
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  mat-card-header {
+    mat-card-subtitle {
+      margin-bottom: 5px !important;
+      font-size: 10px;
+    }
+    a{
+      text-decoration: none;
+    }
+    img{
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  mat-card-title {
+    cursor: pointer;
+    outline: none;
+  }
+  mat-card-content {
+    p{
+      margin-top: 10px;
+    }
+  }
+  mat-card-actions{
+    margin-left: 5px;
+  }
+  
+}
+
+.comments {
+  mat-form-field {
+      width: 100%;
+      margin-top: 20px;
+      margin-left: 7%;
+  }
+  button {
+    font-size: 12px;
+  }
+  .comments-list{
+    margin-top: 20px;
+    width: 100%;
+    // border: 3px solid rgba(0, 0, 0, 0.1);
+    // border-radius: 10px;
+    padding: 10px 10px 10px 5px;
+    .c-info {
+      display: flex;
+      flex-direction: row;
+      width: 50%;
+      .c-user-image{
+        width: 20%;
+        margin-left: 40px !important;
+        img{
+          width: 40px;
+          height: 40px;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 50%;
+        }
+      }
+      .c-user-name{
+        width: 80%; 
+        margin-left: 0px !important;
+        margin-top: 5px;
+        span{ 
+          width: 80%;
+          font-size: 15px;
+          a {
+            color: #000;
+            outline: none;
+            text-decoration: none;
+          }
+        }
+        small {
+          color: rgba(0, 0, 0, 0.54);
+        }
+      }
+    }
+    .c-user-comment {
+      margin-left: 15%;
+      margin-right: 10%;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.54);
+      span{
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .main-section-2{
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    .backButton {
+      margin-left: 20px !important;
+      margin-right: auto;
+      margin-bottom: 40px !important;
+      a {
+        padding-left: 10px;
+        .back {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .main-section{
+    margin-top: 80px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .mat-card-post {
+      width: 80% !important;
+      margin-left: 23px;
+      margin-top: 20px;
+      margin-right: auto;
+      margin-bottom: 20px;
+  }
+  .mat-toolbar-row, .mat-toolbar-single-row {
+    margin-left: 5.5% !important;
+    margin-right: auto;
+  }
+
+  .profile-spacer {
+    width: 90% !important;
+    margin-left: 5px !important;
+    margin-right: 10px !important;
+    .search {
+      border: none;
+      width: 100%;
+      height: 30px;
+      text-align: center;
+      font-size: 15px;
+    }
+    .search:focus{
+      text-align: left;
+    }
+  }
+
+  .user-name {
+    margin-left: 7% !important;
+    margin-right: auto;
+    span {
+        font-size: 20px;
+        font-weight: 500;
+    }
+  }
+  .user-edit {
+      margin-left: auto;
+      margin-right: 6% !important;
+      button {
+
+      }
+  }
+
+  .user-image {
+      margin-left: 20% !important;
+      margin-right: auto !important;
+      .user-profile-pic {
+        width: 80px !important;
+        height: 80px !important;
+      }
+  }
+
+  .postImg {
+    .showPic {
+      width: 80px !important;
+      height: 80px !important;
+    }
+  }
+
+  .user-static {
+      display: flex;
+      margin-left: 30px !important;
+      .user-posts {
+          display: flex;
+          flex-direction: column;
+          font-size: 15px !important;
+          margin-right: 15px !important;
+      }
+      .user-follower {
+          display: flex;
+          flex-direction: column;
+          font-size: 15px !important;
+          margin-right: 15px !important;
+      }
+      .user-following {
+          display: flex;
+          flex-direction: column;
+          font-size: 15px !important;
+      }
+  }
+  .user-action {
+      display: flex;
+      margin-left: auto;
+      margin-right: 10% !important;
+      .user-message {
+          display: flex;
+          flex-direction: column;
+          button {
+              margin-right: 10px;
+          }
+      }
+      .user-follow {
+          display: flex;
+          flex-direction: column;
+          button {
+              margin-left: 10px;
+          }
+      }
+  }
+
+  .profile-bio {
+      width: 85% !important;
+      
+      p {
+        font-size: 14px;
+      }
+  }
+
+  .comments {
+    mat-form-field {
+        width: 90% !important;
+        margin-left: 0px !important;
+        margin-right: 10%;
+    }
+    button {
+      width: 100%;
+      margin-left: 0px;
+      padding-left: 12%;
+    }
+  }
+
+}

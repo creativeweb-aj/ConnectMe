@@ -1,0 +1,114 @@
+<mat-grid-list cols="1" rowHeight="700px">
+
+    <mat-grid-tile>
+
+        <mat-card>
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+                <mat-grid-list cols="1" rowHeight="80px">
+                    <mat-grid-tile>
+                        <h1><strong>Creative Web</strong></h1>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <h2>Create New Account</h2>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-grid-list cols="2" rowHeight="80px">
+
+                            <mat-grid-tile class="name">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput formControlName="firstNameInput" placeholder="First Name">
+                                    <mat-icon matSuffix>person_outline</mat-icon>
+                                    <mat-error *ngIf="firstNameData.errors?.required">
+                                        First name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                            <mat-grid-tile class="name">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput formControlName="lastNameInput" placeholder="Last Name">
+                                    <mat-icon matSuffix>person_outline</mat-icon>
+                                    <mat-error *ngIf="lastNameData.errors?.required">
+                                        Last name is <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </mat-grid-tile>
+
+                        </mat-grid-list>
+                    </mat-grid-tile>
+                    
+                    <mat-grid-tile>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Date of Birth</mat-label>
+                            <input (click)="picker.open()" matInput formControlName="dateofBirthInput" [matDatepicker]="picker" [max]="maxDate" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #picker></mat-datepicker>
+                            <mat-error *ngIf="dobData.errors?.required">
+                                Date of birth is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input type="email" matInput formControlName="emailInput" placeholder="Email Address" email="true">
+                            <mat-icon matSuffix>email</mat-icon>
+                            <mat-error *ngIf="emailData.errors?.required">
+                                Email is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="emailData.errors?.email">
+                                Please enter a valid email address
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-form-field class="singup-full-width" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput formControlName="passwordInput" placeholder="Password" [type]="hide ? 'password' : 'text'">
+                            <mat-icon class="passEye" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-error *ngIf="passData.errors?.required">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="passData.errors?.pattern">
+                                Password must be between <strong>6 - 15 charcters</strong> long and contains <strong>one number and one charcter</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-form-field class="singup-full-width" appearance="outline">
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput formControlName="confirmPasswordInput" placeholder="Confirm Password" [type]="hide ? 'password' : 'text'">
+                            <mat-icon class="passEye" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-error *ngIf="confPassData.errors?.required">
+                                Confirm password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="confPassData.hasError('passwordMismatch')">
+                                Confirm password is <strong>not match</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <button type="submit" mat-stroked-button color="primary">Create Account</button>
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+            </form>
+
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <span class="text-account">If already have an account login here</span> 
+                    <a routerLink="/auth/login" mat-stroked-button color="secondary">LogIn</a>
+                </mat-grid-tile>
+            </mat-grid-list>
+            
+        </mat-card>
+    </mat-grid-tile>
+
+</mat-grid-list>

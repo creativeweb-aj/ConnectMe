@@ -1,0 +1,87 @@
+<div class="main-section">
+    <mat-card class="mat-card-post">
+        <mat-card-header>
+            <div mat-card-avatar>
+                <img src="{{result.response.created_by.profile_picture}}" alt="user profile">
+            </div>
+            <mat-card-title>{{result.response.title}}</mat-card-title>
+            <mat-card-subtitle>Posted By
+                <a routerLink="/home/user-profile/{{result.response.created_by.id}}" color="primary">
+                    {{result.response.created_by.first_name}} {{result.response.created_by.last_name}}
+                </a>
+            </mat-card-subtitle>
+            <mat-card-subtitle class="datetime">{{ convertInt(result.response.created_on) | date:'medium'}}</mat-card-subtitle>
+        </mat-card-header>
+        <img class="card-image" mat-card-image src="{{result.response.post_image}}" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <p [innerHTML]="result.response.content"></p>
+        </mat-card-content>
+        <mat-card-actions>
+            <span class="like-count" id="count-{{result.response.id}}">{{result.response.likes}}</span>
+            <button mat-icon-button color="warn" (click)="likePost(result.response.id)">
+                <mat-icon matSuffix aria-hidden="false" *ngIf="result.response.isLiked" aria-label="favorite_border icon" id="like-{{result.response.id}}">
+                    favorite
+                  </mat-icon>
+                <mat-icon matSuffix aria-hidden="false" *ngIf="!result.response.isLiked" aria-label="favorite_border icon" id="like-{{result.response.id}}">
+                    favorite_border
+                </mat-icon>
+            </button>
+
+            <span class="comment-count" id="count-c-{{result.response.id}}">{{result.response.total_comments}}</span>
+            <button mat-icon-button color="info">
+                <mat-icon matSuffix aria-hidden="false" aria-label="favorite_border icon">
+                    comment
+                </mat-icon>
+            </button>
+        </mat-card-actions>
+
+        <div class="comments">
+            <hr>
+            <div *ngFor="let comment of result.response.comment">
+                <div class="comments-list">
+                    <div class="c-info">
+                        <div class="c-user-image">
+                            <a routerLink="/home/user-profile/{{comment.user_id.id}}" color="primary" title="View Profile">
+                                <img src="{{comment.user_id.profile_picture}}" alt="user profile">
+                            </a>
+                        </div>
+    
+                        <div class="c-user-name">
+                            <span id="userId-{{comment.user_id.id}}">
+                                <a routerLink="/home/user-profile/{{comment.user_id.id}}" color="primary" title="View Profile">
+                                    {{comment.user_id.first_name}} {{comment.user_id.last_name}}
+                                </a>
+                            </span>
+                            <br>
+                            <small>{{ convertInt(comment.created_on) | date:'medium'}}</small>
+                        </div>
+                    </div>
+                    <div class="c-user-comment">
+                        <span>
+                            {{comment.content}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <form [formGroup]="commentForm" (ngSubmit)="onSubmit(result.response.id)">
+                <mat-grid-list cols="4" rowHeight="100px">
+                    <mat-grid-tile colspan="3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Comment</mat-label>
+                            <textarea formControlName="contentInput" matInput placeholder="Comment"></textarea>
+                            <mat-icon matSuffix>text</mat-icon>
+                            <mat-error *ngIf="contentData.errors?.required">
+                                Comment is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="1">
+                        <button type="submit" mat-stroked-button color="primary">Comment</button>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </form>
+        </div>
+
+    </mat-card>
+</div>

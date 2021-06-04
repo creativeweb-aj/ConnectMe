@@ -1,0 +1,166 @@
+<div class="main-section">
+
+    <mat-grid-list cols="1" rowHeight="fit" style="height: 80px;">
+        <mat-grid-tile>
+
+            <div class="user-name">
+                <span>{{userName}}</span>
+            </div>
+            <div class="user-edit" *ngIf="currentUser">
+                <button routerLink="/home/profile-edit" mat-icon-button matTooltip="Edit" aria-label="edit icon">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                </button>
+            </div>
+        
+        </mat-grid-tile>
+
+    </mat-grid-list>
+
+    <mat-grid-list cols="3" rowHeight="fit" style="height: 150px;">
+        <mat-grid-tile colspan="1" class="user-detail-img">
+                <div class="user-image">
+                    <img class="user-profile-pic" src="{{userProfileImage}}" alt="user profile">
+                </div>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" class="user-detail-stat"> 
+            <div class="user-static">
+                <div class="user-posts">
+                    <span><strong>{{userPosts}}</strong></span>
+                    <span>Posts</span>
+                </div>
+                <div class="user-follower">
+                    <span><strong>{{userFollower}}</strong></span>
+                    <span>Followers</span>
+                </div>
+                <div class="user-following">
+                    <span><strong>{{userFollowing}}</strong></span>
+                    <span>Following</span>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    
+    <mat-grid-list cols="1" rowHeight="fit" style="height: 70px;">
+        <mat-grid-tile>
+            <div class="user-action" *ngIf="!currentUser">
+                <div class="user-message">
+                    <button mat-raised-button>Message</button>
+                </div>
+                <div class="user-follow" *ngIf="!isFollow">
+                  <button mat-raised-button (click)="followUser()">Follow</button>
+                </div>
+                <div class="user-follow" *ngIf="isFollow">
+                    <button mat-raised-button (click)="followUser()">Unfollow</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="1" rowHeight="fit" style="height: 200px;">
+        <mat-grid-tile>
+            <div class="profile-bio">
+                <p>{{userBio}}</p>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <div *ngFor="let post of PostsData">
+
+      <mat-card class="mat-card-post">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <img src="{{post.created_by.profile_picture}}" alt="user profile">
+          </div>
+          <mat-card-title routerLink="/home/posts/detail/{{post.id}}">{{post.title}}</mat-card-title>
+          <mat-card-subtitle>Posted By 
+            <a routerLink="/home/profile/{{post.created_by.id}}" color="primary">
+              {{post.created_by.first_name}} {{post.created_by.last_name}}
+            </a>
+          </mat-card-subtitle>
+          <mat-card-subtitle class="datetime">{{ convertInt(post.created_on) | date:'medium'}}</mat-card-subtitle>
+        </mat-card-header>
+        <a routerLink="/home/posts/detail/{{post.id}}">
+          <img class="card-image" mat-card-image src="{{post.post_image}}" alt="Photo of a Shiba Inu">
+        </a>
+        <mat-card-content>
+          <p [innerHTML]="post.content | slice:0:60"></p>
+        </mat-card-content>
+        <mat-card-actions>
+          <span class="like-count" id="count-{{post.id}}">{{post.likes}}</span>
+          <button mat-icon-button color="warn" (click)="likePost(post.id)">
+            <mat-icon matSuffix aria-hidden="false" *ngIf="post.isLiked" aria-label="favorite_border icon" id="like-{{post.id}}"> 
+              favorite
+            </mat-icon>
+            <mat-icon matSuffix aria-hidden="false" *ngIf="!post.isLiked" aria-label="favorite_border icon" id="like-{{post.id}}"> 
+              favorite_border
+            </mat-icon>
+          </button>
+
+          <span class="comment-count" id="count-c-{{post.id}}">{{post.total_comments}}</span>
+          <button mat-icon-button color="info" (click)="commentToggle(post.id)">
+            <mat-icon matSuffix aria-hidden="false" aria-label="favorite_border icon">
+              comment
+            </mat-icon>
+          </button>
+
+          <!-- <button mat-button>SHARE</button> -->
+        </mat-card-actions>
+
+        <div class="comments" id="comment-{{post.id}}" *ngIf="showComment===post.id">
+          <hr>
+  
+          <div *ngFor="let comment of post.comment">
+            <div class="comments-list">
+                <div class="c-info">
+                    <div class="c-user-image">
+                      <a routerLink="/home/profile/{{comment.user_id.id}}" color="primary" title="View Profile">
+                        <img src="{{comment.user_id.profile_picture}}" alt="user profile">
+                      </a>
+                    </div>
+  
+                    <div class="c-user-name">
+                        <span id="userId-{{comment.user_id.id}}">
+                          <a routerLink="/home/profile/{{comment.user_id.id}}" color="primary" title="View Profile">
+                            {{comment.user_id.first_name}} {{comment.user_id.last_name}}
+                          </a>
+                        </span>
+                        <br>
+                        <small>{{ convertInt(comment.created_on) | date:'medium'}}</small>
+                    </div>
+                </div>
+                <div class="c-user-comment">
+                    <span>
+                        {{comment.content}}
+                    </span>
+                </div>
+            </div>
+          </div>
+    
+          <form [formGroup]="commentForm" (ngSubmit)="onSubmit(post.id)">
+            <mat-grid-list cols="4" rowHeight="100px">
+              <mat-grid-tile colspan="3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Comment</mat-label>
+                  <textarea formControlName="contentInput" matInput placeholder="Comment"></textarea>
+                  <mat-icon matSuffix>text</mat-icon>
+                  <mat-error *ngIf="contentData.errors?.required">
+                    Comment is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="1">
+                <button type="submit" mat-stroked-button color="primary">Comment</button>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </form>
+        </div>
+
+
+      </mat-card>
+
+    </div>
+    
+
+
+
+</div>
+

@@ -1,0 +1,73 @@
+mat-grid-list {
+    mat-grid-tile {
+        h1 {
+            margin-bottom: 0px;
+            color: rgb(80, 141, 255);
+        }
+        mat-card {
+            width: 50%;
+            box-shadow: none !important;
+            background-color: rgba(0, 0, 0, 0.001);
+            mat-grid-list {
+                width: 100% !important;
+        
+                mat-grid-tile {
+                    h2 {
+                        color: rgb(0, 0, 0);
+                    }
+        
+                    button {
+                        color: rgb(255, 255, 255);
+                        background-color: rgb(80, 141, 255);
+                        border: none;
+                    }
+        
+                    mat-form-field {
+                        width: 80%;
+                    }
+                    
+                    mat-grid-list {
+                        mat-grid-tile {
+                            
+                            mat-form-field {
+                                width: 100% !important;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        
+            .passEye {
+                cursor: pointer;
+            }
+        
+            .text-account {
+                margin: 10px;
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    mat-grid-list {
+        mat-grid-tile {
+            mat-card {
+                width: 90%;
+        
+                mat-grid-list {
+                    width: 100% !important;
+            
+                    mat-grid-tile {
+                       
+                        mat-form-field {
+                            width: 90% !important;
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+}

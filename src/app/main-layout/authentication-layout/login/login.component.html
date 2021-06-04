@@ -1,0 +1,60 @@
+<mat-grid-list cols="1" rowHeight="500px">
+
+    <mat-grid-tile>
+
+        <mat-card>
+            <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+                <mat-grid-list cols="1" rowHeight="80px">
+                    <mat-grid-tile>
+                        <h1><strong>Creative Web</strong></h1>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <h2>LogIn</h2>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email Address</mat-label>
+                            <input type="email" matInput formControlName="emailInput" placeholder="Email Address">
+                            <mat-icon matSuffix>email</mat-icon>
+                            <mat-error *ngIf="emailData.errors?.required">
+                                Email is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="emailData.errors?.email">
+                                Please enter a valid email address
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <mat-form-field class="singup-full-width" appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" formControlName="passwordInput" [type]="hide ? 'password' : 'text'">
+                            <mat-icon class="passEye" matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-error *ngIf="passData.errors?.required">
+                                Password is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="passData.errors?.pattern">
+                                Password must be between <strong>6 - 15 charcters</strong> long and contains <strong>one number and one charcter</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <button type="submit" mat-stroked-button color="primary">LogIn</button>
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+            </form>
+
+            <mat-grid-list cols="1" rowHeight="80px">
+                <mat-grid-tile>
+                    <span class="text-account">If not have an account create here</span> 
+                    <a routerLink="/auth/signup" mat-stroked-button color="secondary">SignUp</a>
+                </mat-grid-tile>
+            </mat-grid-list>
+            
+        </mat-card>
+
+    </mat-grid-tile>
+
+</mat-grid-list>

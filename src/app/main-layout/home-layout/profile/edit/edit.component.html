@@ -1,0 +1,53 @@
+<div class="main-section-2">
+    <div class="backButton">
+        <a routerLink="/home/profile" mat-stroked-button color="secondary">
+            <mat-icon matSuffix>arrow_back</mat-icon>
+            <span class="back">Back</span>
+        </a>
+    </div>
+    <span class="edit-profile">Edit Profile</span>
+    <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
+        <div class="user-name-edit">
+            <mat-form-field appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstNameInput" placeholder="First Name">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="firstNameData.errors?.required">
+                    First name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastNameInput" placeholder="Last Name">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="lastNameData.errors?.required">
+                    Last name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="postImg">
+            <img [src]="userProfile" class="showPic" alt="post picture">
+            <label for="proPic" class="postPic"><img [src]="imgUrl" alt="upload"></label>
+            <input id="proPic" type="file" (change)="uploadFile($event)" accept=".jpg, .JPG, .jpeg, .JPEG .png, .PNG">
+            <mat-error *ngIf="imageError">
+                Uploading image format is not <strong>acceptable</strong>
+            </mat-error>
+        </div>
+        <div class="user-bio">
+            <mat-form-field appearance="outline">
+                <mat-label>Bio</mat-label>
+                <textarea matInput formControlName="bioInput" placeholder="Bio"></textarea>
+                <mat-icon matSuffix>text</mat-icon>
+                <mat-error *ngIf="bioData.errors?.maxlength">
+                    Bio is only contains <strong>250 words</strong>
+                </mat-error>
+                <!-- <mat-error *ngIf="bioData.errors?.required">
+                    Bio is <strong>required</strong>
+                </mat-error> -->
+            </mat-form-field>
+        </div>
+      
+        <button type="submit" mat-raised-button color="primary">Update</button>
+        
+    </form>
+</div>

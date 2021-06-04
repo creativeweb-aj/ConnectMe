@@ -1,0 +1,74 @@
+.user-name {
+    margin-left: 25%;
+    margin-right: auto;
+    span {
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+.user-edit {
+    margin-left: auto;
+    margin-right: 23%;
+    button {
+
+    }
+}
+
+.user-image {
+    margin-left: 72%;
+    .user-profile-pic {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
+    }
+}
+.user-static {
+    display: flex;
+    width: 100%;
+    margin-left: 20%;
+    .user-posts {
+        display: flex;
+        flex-direction: column;
+        margin-right: 40px;
+        font-size: 20px;
+    }
+    .user-follower {
+        display: flex;
+        flex-direction: column;
+        margin-right: 40px;
+        font-size: 20px;
+    }
+    .user-following {
+        display: flex;
+        flex-direction: column;
+        font-size: 20px;
+    }
+}
+.user-action {
+    display: flex;
+    margin-left: auto;
+    margin-right: 25%;
+    .user-message {
+        display: flex;
+        flex-direction: column;
+        button {
+            margin-right: 20px;
+        }
+    }
+    .user-follow {
+        display: flex;
+        flex-direction: column;
+        button {
+            margin-left: 20px;
+        }
+    }
+}
+
+.profile-bio {
+    width: 50%;
+    p {
+        font-size: 14px;
+    }
+}

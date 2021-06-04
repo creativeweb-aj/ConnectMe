@@ -1,0 +1,26 @@
+.dot-button-container {
+    display: flex;
+    justify-content: center;
+}
+.dot-button-container button{
+    position: absolute;
+    top: 10px;
+    right: 80px;
+}
+
+.create-flex-container {
+    display: flex;
+    justify-content: space-between;
+    width: 480px;
+}
+.create-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+}
+.create-button-container button{
+    position: fixed;
+    bottom: 40px;
+    right: 50px;
+}
+

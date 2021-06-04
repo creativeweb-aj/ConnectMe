@@ -1,0 +1,43 @@
+<mat-toolbar color="primary" *ngIf="mainServicesService.searchToggle">
+    <span><img class="logo" routerLink="/home/posts" src="assets/images/logo1.png"></span>
+    <span class="profile-spacer">
+        <div *ngIf="mainServicesService.searchForm">
+            <form [formGroup]="searchForm" (ngSubmit)="search()">
+                <input type="search" formControlName="search" class="search" placeholder="Search">
+            </form>
+        </div>
+        <div class="appTitle" *ngIf="!mainServicesService.searchForm">
+            <span>Creative Web</span>
+        </div>
+    </span>
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button [matMenuTriggerFor]="profile">
+        <img class="profile-pic rightIcon" [src]="profileImage">
+    </button>
+    <mat-menu #profile="matMenu">
+        <span class="user-info">
+            <!-- <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon> -->
+            <img class="profile-pic" [src]="profileImage">
+            <h3>{{userName | titlecase }}</h3>
+        </span>
+        <button mat-menu-item routerLink="/home/profile">
+            <mat-icon aria-hidden="false" aria-label="user profile icon">account_circle</mat-icon>
+            My Profile
+        </button>
+        <button mat-menu-item routerLink="/home/posts/create">
+            <mat-icon aria-hidden="false" aria-label="user post create icon">create</mat-icon>
+            Create Post
+        </button>
+        <button mat-menu-item routerLink="/home/settings">
+            <mat-icon aria-hidden="false" aria-label="user setting icon">settings</mat-icon>
+            Settings
+        </button>
+        <button mat-menu-item routerLink="/auth/login" *ngIf="!mainServicesService.getToken()">
+            <mat-icon aria-hidden="false" aria-label="login icon">login</mat-icon>
+            Log in
+        </button>
+        <button mat-menu-item (click)="mainServicesService.logOutUser()" *ngIf="mainServicesService.getToken()">
+            <mat-icon aria-hidden="false" aria-label="logout icon">exit_to_app</mat-icon>
+            Log out
+        </button>
+    </mat-menu>
+</mat-toolbar>

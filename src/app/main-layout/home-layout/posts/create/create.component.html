@@ -1,0 +1,62 @@
+<div class="main-section-2">
+    <div class="backButton">
+        <a routerLink="/home/posts" mat-stroked-button color="secondary">
+            <mat-icon matSuffix>arrow_back</mat-icon>
+            <span class="back">Back</span>
+        </a>
+    </div>
+    <span class="create-post">Create Post</span>
+    <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
+        <div class="post-title">
+            <mat-form-field appearance="outline">
+                <mat-label>Post Title</mat-label>
+                <input matInput formControlName="titleInput" placeholder="Post Title">
+                <mat-icon matSuffix>title</mat-icon>
+                <mat-error *ngIf="titleData.errors?.required">
+                    Title is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="postImg">
+            <img [src]="userProfile" class="showPic" alt="post picture">
+            <label for="proPic" class="postPic"><img [src]="imgUrl" alt="upload"></label>
+            <input id="proPic" type="file" (change)="uploadFile($event)" accept=".jpg, .JPG, .jpeg, .JPEG .png, .PNG">
+            <mat-error *ngIf="imageError">
+                Uploading image format is not <strong>acceptable</strong>
+            </mat-error>
+        </div>
+        <div class="post-content">
+            <!-- <mat-form-field appearance="outline">
+                <mat-label>Post Content</mat-label>
+                <textarea matInput placeholder="Post Content"></textarea>
+                <mat-icon matSuffix>text</mat-icon>
+            </mat-form-field> -->
+
+            <editor formControlName="contentInput"
+                class="tinyMce"
+                apiKey="vl2zco9rtrwtivb1gcnvnu6t0dyjltc2r8nb7tmmumcg3sb9"
+                [init]="{
+                    icons: 'material',
+                    skin: 'borderless',
+                    menubar: true,
+                    toolbar: 'undo redo | formatselect | bold italic backcolor | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | removeformat | help',
+                    toolbar_mode: 'floating',
+                    plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                    ],
+                    min_height: 300
+                }"
+                ></editor>
+                <mat-error *ngIf="contentData.errors?.required">
+                    Content is <strong>required</strong>
+                </mat-error>
+        </div>
+      
+        <button type="submit" mat-raised-button color="primary">Post</button>
+        
+    </form>
+</div>
