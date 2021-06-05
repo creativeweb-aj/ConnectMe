@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  webapp:
+    build: .
+    command: ng serve --host 0.0.0.0
+    volumes:
+      - .:/connectme
+    ports:
+      - "4200:4200"
