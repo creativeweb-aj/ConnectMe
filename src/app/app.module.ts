@@ -30,7 +30,6 @@ import { SettingsComponent } from './main-layout/home-layout/settings/settings.c
 import { EmailVerificationComponent } from './main-layout/authentication-layout/email-verification/email-verification.component';
 import { UserComponent } from './main-layout/home-layout/profile/user/user.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

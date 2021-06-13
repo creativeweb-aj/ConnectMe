@@ -15,13 +15,13 @@ export class MainServicesService {
   API_BASE_URL = `${environment.API_BASE_URL}`;
 
   private data = new BehaviorSubject('');
-  searchKey = this.data.asObservable()
+  searchKey = this.data.asObservable();
 
   private userNameData = new BehaviorSubject('');
-  userName = this.userNameData.asObservable()
+  userName = this.userNameData.asObservable();
 
   private userImageData = new BehaviorSubject('');
-  userImage = this.userImageData.asObservable()
+  userImage = this.userImageData.asObservable();
 
   // Header search show hide variable
   searchToggle: boolean = true;

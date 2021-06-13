@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthServiceService } from '../service/auth-service.service';
 
 @Component({
@@ -10,6 +12,8 @@ import { AuthServiceService } from '../service/auth-service.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  isDisable = false;
 
   hide = true;
 
@@ -53,8 +57,11 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router
   ) { }
+  
+  isTrue: Boolean = false;
 
   ngOnInit(): void {
+    
   }
 
   onSubmit(){
@@ -67,8 +74,16 @@ export class LoginComponent implements OnInit {
       "email": this.emailData.value,
       "password": this.passData.value
     }
-
-    this.authServices.logInServiceApi(data).subscribe((res: any) => {
+    this.isTrue = true;
+    this.authServices.logInServiceApi(data)
+    .pipe(
+      catchError(err => {
+        this.isTrue = false;
+        
+        return throwError(err);
+      })
+    )
+    .subscribe((res: any) => {
       console.info(res)
       this.responseData = res;
       if(this.responseData.status == "SUCCESS"){
@@ -80,7 +95,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/home/posts']);
           });
       }
-    });
+    })
 
   }
 

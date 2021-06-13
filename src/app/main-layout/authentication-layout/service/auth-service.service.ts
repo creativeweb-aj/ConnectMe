@@ -37,6 +37,16 @@ export class AuthServiceService {
     let url = this.API_BASE_URL+'/auth/login';
     return this.http.post(url, data).pipe(
       catchError(err => {
+        if(err.status == 409){
+          this.snackBar.open(err.error.message, 'Dismiss', {
+            duration: 3000,
+          });
+        }
+        if(err.status == 401){
+          this.snackBar.open(err.error.detail, 'Dismiss', {
+            duration: 3000,
+          });
+        }
         return throwError(err);
       })
     )

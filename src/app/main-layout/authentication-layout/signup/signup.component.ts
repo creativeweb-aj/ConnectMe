@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthServiceService } from '../service/auth-service.service';
 import { CustomValidationService } from './validator';
 
@@ -109,6 +111,8 @@ export class SignupComponent implements OnInit {
     this.maxDate = new Date(date);
   }
 
+  isTrue: Boolean = false;
+
   ngOnInit(): void {
   }
 
@@ -128,8 +132,17 @@ export class SignupComponent implements OnInit {
       "password": this.passData.value,
       "password2": this.confPassData.value
     }
-
-    this.authServices.signUpServiceApi(data).subscribe((res: any) => {
+    // Disabled button
+    this.isTrue = true;
+    this.authServices.signUpServiceApi(data)
+    .pipe(
+      catchError(err => {
+        this.isTrue = false;
+        
+        return throwError(err);
+      })
+    )
+    .subscribe((res: any) => {
       console.info(res)
       this.responseData = res;
       if(this.responseData.status == "SUCCESS"){
