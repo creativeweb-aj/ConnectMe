@@ -9,11 +9,12 @@ import { finalize } from 'rxjs/operators';
 export class InterceptorService implements HttpInterceptor {
 
   constructor(
+    
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if(!request.url.includes('logout')){
-      //this.mainService.showLoader(true);  
+      //this.loaderService.isLoader(true);
     }
     
     if(localStorage.getItem('token') != null){
@@ -26,13 +27,13 @@ export class InterceptorService implements HttpInterceptor {
       });
       return next.handle(AuthReq).pipe(
         finalize(() =>{
-          //this.mainService.showLoader(false);
+          //this.loaderService.isLoader(false);
         })
       );
     }else{
       return next.handle(request).pipe(
         finalize(() =>{
-          //this.mainService.showLoader(false);
+          //this.loaderService.isLoader(false);
         })
       );
     }

@@ -26,6 +26,7 @@ import { AuthGuardGuard } from './auth-guard.guard';
 import { AuthenticatedGuardGuard } from './authenticated-guard.guard';
 
 const routes: Routes = [
+  { path: '',   redirectTo: '/auth/login', pathMatch: 'full' },
   { path: '', component: MainLayoutComponent, children: [
     { path: 'auth', component: AuthenticationLayoutComponent, children: [
       { path: 'login', component: LoginComponent, pathMatch: 'full', canActivate:[AuthenticatedGuardGuard] },
